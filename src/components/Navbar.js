@@ -1,7 +1,9 @@
 // src/components/Navbar.js
 
+import { useState } from 'react';
+
 export default function Navbar() {
-  // Navigation links — each has an id matching a section in the page
+  // Navigation links — each id matches a section element on the page
   const navItems = [
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
@@ -9,6 +11,12 @@ export default function Navbar() {
     { id: 'projects', label: 'Projects' },
     { id: 'contact', label: 'Contact' },
   ];
+
+  // Scrolls smoothly to the clicked section using its id
+  const handleNavClick = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    element?.scrollIntoView({ behavior: 'smooth' }); // ?. prevents error if element not found
+  };
 
   return (
     // Fixed navbar stays at top while scrolling
@@ -21,10 +29,14 @@ export default function Navbar() {
             PJ<span className="text-zinc-500">.</span>
           </a>
 
-          {/* Desktop nav links — hidden on mobile */}
+          {/* Desktop nav links — clicking scrolls to section */}
           <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
-              <button key={item.id} className="text-sm font-medium text-zinc-500">
+              <button
+                key={item.id}
+                onClick={() => handleNavClick(item.id)} // trigger smooth scroll on click
+                className="text-sm font-medium text-zinc-500 hover:text-zinc-300"
+              >
                 {item.label}
               </button>
             ))}
