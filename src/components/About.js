@@ -1,19 +1,27 @@
 
+import { motion } from 'framer-motion';
+
 export default function About() {
   // Stats data 
   const stats = [
     { label: 'Years Experience', value: '1+' },
     { label: 'Projects Completed', value: '10+' },
     { label: 'Technologies', value: '10+' },
-    { label: 'Happy Clients', value: '15+' },
+    { label: 'Happy Clients', value: '10+' },
   ];
 
   return (
     <section id="about" className="min-h-screen w-full bg-black py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
 
-        {/* Section header */}
-        <div className="mb-12">
+        {/* Section header — animates in when scrolled into view */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}   // starts invisible 20px below
+          whileInView={{ opacity: 1, y: 0 }} // animates when user scrolls to it
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}           // only animates once, not every scroll
+          className="mb-12"
+        >
           <p className="mb-2 text-sm font-medium uppercase tracking-widest text-zinc-500">
             About Me
           </p>
@@ -31,30 +39,44 @@ export default function About() {
             </p>
           </div>
 
-          {/* CV download button */}
-          
-            <a href="/resume-peter-jakes.pdf"
+          {/* CV download button — scales on hover and tap */}
+          <motion.a
+            href="/resume-peter-jakes.pdf"
             download
             className="mt-6 inline-block rounded-lg border border-zinc-700 bg-zinc-100 px-6 py-3 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-200"
+            whileHover={{ scale: 1.05 }} // slight scale up on hover
+            whileTap={{ scale: 0.95 }}   // slight scale down on click
           >
             Download CV
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
 
-        {/* Stats grid — 2 cols on mobile, 4 cols on desktop */}
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 mt-12">
+        {/* Stats grid — fades in after content */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }} // slight delay after content
+          viewport={{ once: true }}
+          className="grid grid-cols-2 gap-4 sm:grid-cols-4 mt-12"
+        >
           {stats.map((stat, index) => (
-            <div
+            // Each stat card animates in one after another using index delay
+            <motion.div
               key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }} // staggered: 0s, 0.1s, 0.2s, 0.3s
+              viewport={{ once: true }}
+              whileHover={{ y: -5, scale: 1.02 }} // lifts up slightly on hover
               className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-4 sm:p-6"
             >
               {/* Stat number */}
               <div className="mb-1 text-3xl font-bold text-zinc-100">{stat.value}</div>
               {/* Stat label */}
               <div className="text-xs sm:text-sm font-medium text-zinc-500">{stat.label}</div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
       </div>
     </section>
