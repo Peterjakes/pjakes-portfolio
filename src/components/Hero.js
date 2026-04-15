@@ -1,8 +1,23 @@
 // src/components/Hero.js
 
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Hero() {
+  // Tracks how far user has scrolled 
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    // Update scrollY state whenever user scrolls
+    const handleScroll = () => setScrollY(window.scrollY);
+
+    // Attach scroll listener on mount
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup on unmount to prevent memory leaks
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []); // empty array = runs once on mount
+
   return (
     // Full screen hero section — id="home" links it to navbar scroll
     <div id="home" className="relative min-h-screen w-full overflow-hidden bg-black flex items-center justify-center">
@@ -13,8 +28,8 @@ export default function Hero() {
         {/* Subtitle animates in first */}
         <motion.p
           className="mb-3 text-sm font-medium tracking-widest uppercase text-zinc-500"
-          initial={{ opacity: 0, y: 20 }} // starts invisible and 20px below
-          animate={{ opacity: 1, y: 0 }}  // fades in and slides up
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
           Full Stack Developer & Graphic Designer
@@ -25,7 +40,7 @@ export default function Hero() {
           className="mb-4 text-3xl font-bold tracking-tight text-zinc-100 sm:text-5xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.15 }} // slight delay after subtitle
+          transition={{ duration: 0.8, delay: 0.15 }}
         >
           Peter Jakes
         </motion.h1>
@@ -48,7 +63,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.45 }}
         >
           
-             <a href="#projects"
+            <a href="#projects"
             className="rounded-lg border border-zinc-700 bg-zinc-100 px-5 py-2.5 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-200"
           >
             View Projects
