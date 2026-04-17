@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion';
+
 export default function TechStack() {
   // Skills grouped by category — easy to update or add new categories
   const skills = [
@@ -31,15 +33,21 @@ export default function TechStack() {
     <section id="skills" className="min-h-screen w-full bg-black py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
 
-        {/* Section header */}
-        <div className="mb-12">
+        {/* Section header — animates in when scrolled into view */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}   // starts invisible 20px below
+          whileInView={{ opacity: 1, y: 0 }} // animates when scrolled to
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}           // only animates once
+          className="mb-12"
+        >
           <p className="mb-2 text-sm font-medium uppercase tracking-widest text-zinc-500">
             Skills
           </p>
           <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
             Technologies & Tools
           </h2>
-        </div>
+        </motion.div>
 
         {/* Skills grid — 1 col mobile, 2 col tablet, 3 col desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
