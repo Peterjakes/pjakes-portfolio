@@ -1,5 +1,9 @@
+import { useState } from 'react';
+
 export default function Portfolio() {
-  // Projects data 
+  // Tracks which category filter is active — defaults to showing all projects
+  const [filter, setFilter] = useState('all');
+
   const projects = [
     {
       id: 1,
@@ -63,8 +67,13 @@ export default function Portfolio() {
     },
   ];
 
+  // All available filter categories
+  const categories = ['all', 'web', 'mobile', 'design'];
+
+  // Filter projects based on active category — show all if filter is 'all'
+  const filteredProjects = filter === 'all' ? projects : projects.filter((p) => p.category === filter);
+
   return (
-    // Section id="projects" links it to navbar scroll
     <section id="projects" className="min-h-screen w-full bg-black py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
 
@@ -81,9 +90,27 @@ export default function Portfolio() {
           </p>
         </div>
 
-        {/* Projects grid — 1 col mobile, 2 col tablet, 3 col desktop */}
+        {/* Filter buttons — highlights active category */}
+        <div className="mb-8 flex flex-wrap gap-3 justify-center">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setFilter(cat)} // update active filter on click
+              className={`rounded-lg px-4 py-2 text-sm font-medium transition-all ${
+                filter === cat
+                  ? 'bg-zinc-100 text-zinc-900'             // active style
+                  : 'border border-zinc-800 text-zinc-500 hover:border-zinc-600 hover:text-zinc-200' // inactive style
+              }`}
+            >
+              {/* Capitalize first letter of category name */}
+              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        {/* Projects grid — renders filtered projects */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((work) => (
+          {filteredProjects.map((work) => (
             <div
               key={work.id}
               className="group overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/40 transition-colors hover:border-zinc-600"
@@ -116,10 +143,9 @@ export default function Portfolio() {
 
                 {/* Action buttons */}
                 <div className="flex gap-2">
-                  {/* GitHub link */}
                   {work.github && (
-                    <a
-                      href={work.github}
+                    
+                      <a href={work.github}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-1 rounded-lg border border-zinc-700 px-3 py-2 text-center text-xs font-medium text-zinc-400 transition-colors hover:border-zinc-500 hover:text-zinc-200"
@@ -127,10 +153,9 @@ export default function Portfolio() {
                       GitHub
                     </a>
                   )}
-                  {/* Live link  */}
                   {work.live && work.live !== '#' && (
-                    <a
-                      href={work.live}
+                    
+                      <a href={work.live}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-1 rounded-lg bg-zinc-100 px-3 py-2 text-center text-xs font-medium text-zinc-900 transition-colors hover:bg-zinc-200"
@@ -138,10 +163,9 @@ export default function Portfolio() {
                       Live
                     </a>
                   )}
-                  {/* Portfolio link — only shows for design projects */}
                   {work.portfolio && (
-                    <a
-                      href={work.portfolio}
+                    
+                      <a href={work.portfolio}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-1 rounded-lg border border-zinc-700 px-3 py-2 text-center text-xs font-medium text-zinc-400 transition-colors hover:border-zinc-500 hover:text-zinc-200"
