@@ -4,20 +4,20 @@ import About from './components/About';
 import TechStack from './components/TechStack';
 import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
-import './App.css'; // global styles
+import Footer from './components/Footer'; 
+import './App.css';
 
 function App() {
   return (
     // Wrapper div — bg-black ensures no white flash between sections
     <div className="min-h-screen bg-black">
-
-      {/* Navbar — fixed at top, overlays all sections */}
       <Navbar />
       <Hero />       
       <About />      
       <TechStack />  
       <Portfolio />  
       <Contact />    
+      <Footer />
 
     </div>
   );
