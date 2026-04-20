@@ -1,9 +1,9 @@
-/* ─── Scroll Behavior ───*/
+/* ─── Scroll Behavior ─── */
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; /* makes navbar clicks scroll smoothly instead of jumping */
 
-  /* Firefox scrollbar */
+  /* Firefox custom scrollbar */
   scrollbar-width: thin;
   scrollbar-color: rgba(113, 113, 122, 0.5) rgba(0, 0, 0, 0.1);
 }
@@ -13,34 +13,71 @@ html {
 body {
   margin: 0;
   padding: 0;
+
+  /* System font stack — uses the best font available on each OS */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+
+  /* Smoother font rendering */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #000;
-  color: #e4e4e7;
+
+  background: #000;   /* matches Tailwind bg-black used across all sections */
+  color: #e4e4e7;     /* matches Tailwind zinc-200 — default text color */
 }
 
 /* ─── Custom Scrollbar (Chrome, Edge, Safari) ─── */
 
-/* Width of the scrollbar */
+/* Width of the entire scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
 
-/* Track — the background behind the thumb */
+/* Track — the background rail behind the thumb */
 ::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.1);
 }
 
-/* Thumb — the draggable part */
+/* Thumb — the draggable scrolling handle */
 ::-webkit-scrollbar-thumb {
   background: rgba(113, 113, 122, 0.5); /* zinc-500 at 50% opacity */
-  border-radius: 5px;                    /* rounded edges */
+  border-radius: 5px;
 }
 
-/* Thumb darkens slightly when hovered */
+/* Thumb darkens on hover for better feedback */
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(113, 113, 122, 0.7); /* zinc-500 at 70% opacity */
+}
+
+/* ─── Text Selection ─── */
+
+/* Changes the highlight color when user selects text */
+::selection {
+  background: rgba(113, 113, 122, 0.3); /* subtle zinc highlight */
+  color: #f4f4f5;                        /* zinc-100 — bright text when selected */
+}
+
+/* ─── Keyframe Animations ─── */
+
+/* Simple fade in — can be used with: animation: fadeIn 0.5s ease */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide up and fade in — can be used with: animation: slideUp 0.5s ease */
+@keyframes slideUp {
+  from {
+    transform: translateY(20px); /* starts 20px below */
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);    /* slides to natural position */
+    opacity: 1;
+  }
 }
