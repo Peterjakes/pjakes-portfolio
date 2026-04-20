@@ -1,3 +1,14 @@
+/* ─ Scroll Behavior ─ */
+html {
+  scroll-behavior: smooth; /* makes navbar clicks scroll smoothly instead of jumping */
+
+  /* Firefox custom scrollbar — thin style with zinc colors */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(113, 113, 122, 0.5) rgba(0, 0, 0, 0.1);
+}
+
+/* ─── Base Styles ─── */
+
 body {
   margin: 0;
   padding: 0;
@@ -13,6 +24,6 @@ body {
   /* Smoother font rendering on Firefox Mac */
   -moz-osx-font-smoothing: grayscale;
 
-  background: #000;     /* matches Tailwind bg-black used in components */
-  color: #e4e4e7;       /* matches Tailwind zinc-200 — default text color */
+  background: #000;   /* matches Tailwind bg-black used in components */
+  color: #e4e4e7;     /* matches Tailwind zinc-200 — default text color */
 }
